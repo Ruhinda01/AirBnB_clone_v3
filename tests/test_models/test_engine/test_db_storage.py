@@ -86,3 +86,40 @@ class TestFileStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_save(self):
         """Test that save properly saves objects to file.json"""
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_get_with_none_id(self):
+        """Test that get returns None based on id being None"""
+        self.assertEqual(models.storage.get(State, None), None)
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_get_with_none_class_and_id(self):
+        """Test that get returns None with a none class and Id"""
+        self.assertEqual(models.storage.get(None, None), None)
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_get(self):
+        """Test that get returns the correct object
+        based on id and class inputs"""
+        state = State(name="California")
+        models.storage.new(state)
+        models.storage.save()
+        state_id = state.id
+        retrieved_state = models.storage.get(State, state_id)
+        self.assertEqual(state, retrieved_state)
+        self.assertIsNotNone(retrieved_state)
+        self.assertEqual(models.storage.get(State, "1234"), None)
+        # first_state_id = list(models.storage.all(State).values())[0].id
+        # first_state = models.storage.get(State, first_state_id)
+        # self.assertIsNotNone(first_state)
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_count(self):
+        """Test that count returns the correct number of objects"""
+        all_objs = models.storage.count()
+        self.assertEqual(all_objs, 0)
+        state = State(name="California")
+        models.storage.new(state)
+        models.storage.save()
+        state_objs = models.storage.count(State)
+        self.assertEqual(state_objs, 1)
