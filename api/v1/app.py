@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Insatnctiates a flask app"""
+"""Instanctiates a flask app by calling the Flask extention"""
 from flask import Flask, jsonify, make_response
 from models import storage
 from api.v1.views import app_views
@@ -14,6 +14,7 @@ app.register_blueprint(app_views)
 def not_found(error):
     """Not found Page"""
     return make_response(jsonify({"error": "Not found"}), 404)
+
 
 @app.teardown_appcontext
 def teardown_db(exception):
