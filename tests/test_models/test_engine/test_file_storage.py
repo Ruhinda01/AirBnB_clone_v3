@@ -113,3 +113,37 @@ class TestFileStorage(unittest.TestCase):
         with open("file.json", "r") as f:
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_with_none_as_id(self):
+        """Test get method with None as id"""
+        storage = FileStorage()
+        self.assertEqual(storage.get(State, None), None)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_with_none_as_both_class_and_id(self):
+        """Test get method with None as id and class"""
+        storage = FileStorage()
+        self.assertEqual(storage.get(None, None), None)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get(self):
+        """Test get method with id and class"""
+        storage = FileStorage()
+        state = State(name="Colorado")
+        storage.new(state)
+        storage.save()
+        self.assertEqual(storage.get(State, state.id), state)
+        get_result = storage.get(State, state.id)
+        self.assertIsNotNone(get_result)
+        self.assertEqual(storage.get(State, "123"), None)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count(self):
+        """Tests the count method with cls and without it as well"""
+        storage = FileStorage()
+        state = State(name="Colorado")
+        storage.new(state)
+        storage.save()
+        state_objs = models.storage.count(State)
+        self.assertEqual(state_objs, 1)
