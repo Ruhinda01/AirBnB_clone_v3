@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """Insatnctiates a flask app"""
 from flask import Flask, jsonify, make_response
 from models import storage
