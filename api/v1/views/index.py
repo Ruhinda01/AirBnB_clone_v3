@@ -14,7 +14,7 @@ from models.review import Review
 @app_views.route('/status', methods=["GET"], strict_slashes=False)
 def status():
   """Checks the status of the api"""
-  return jsonify({'status': 'OK'})
+  return jsonify(status='OK')
 
 @app_views.route('/stats', methods=["GET"], strict_slashes=False)
 def obj_count():
