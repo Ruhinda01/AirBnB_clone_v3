@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 View for State objects that handles all defualt
 RESTful API actions
@@ -22,7 +23,7 @@ def show_state(state_id):
     """
     Shows the state object based off the id
     """
-    state - storage.get(State, state_id)
+    state = storage.get(State, state_id)
     if state is None:
         abort(404)
     return jsonify(state.to_dict())
