@@ -48,6 +48,8 @@ def create_state():
     """
     Creates a new state
     """
+    if request.headers.get('Content-Type') != 'application/json':
+        abort(400, "Not a JSON")
     if not request.get_json():
         abort(400, "Not a JSON")
     if "name" not in request.get_json():
