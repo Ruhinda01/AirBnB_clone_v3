@@ -50,6 +50,7 @@ def create_amenity():
         abort(400, "Missing name")
     data = request.get_json()
     amenity = Amenity(**data)
+    storage.new(amenity)
     storage.save()
     return jsonify(amenity.to_dict()), 201
 
