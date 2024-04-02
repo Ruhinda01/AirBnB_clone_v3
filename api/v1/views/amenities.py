@@ -11,11 +11,12 @@ from models.amenity import Amenity
 
 @app_views.route('/amenities', methods=['GET'], strict_slashes=False)
 def show_amenities():
-    """
-    Retrieves the list of all amenity objects
-    """
-    amenities = list(storage.all(Amenity).values())
-    return jsonify([amenity.to_dict() for amenity in amenities])
+    """Retrieves the list of all amenity objects"""
+    amen_list = []
+    amenities = storage.all(Amenity)
+    for amen in amenities.values():
+        amen_list.append(amen.to_dict())
+    return jsonify(amen_list)
 
 
 @app_views.route('/amenities/<amenity_id>',
