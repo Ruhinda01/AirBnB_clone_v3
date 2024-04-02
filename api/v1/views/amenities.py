@@ -50,7 +50,6 @@ def create_amenity():
         data = request.get_json()
     except Exception:
         abort(400, "Not a JSON")
-    
     if "name" not in data:
         abort(400, "Missing name")
     # data = request.get_json()
