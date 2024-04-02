@@ -11,7 +11,9 @@ from models.user import User
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
 def get_users():
-    """Retrieves a list of all User objects"""
+    """Gets all the users in storage
+    Return: a list of jsonified users
+    """
     users = storage.all(User)
     users_list = []
     for user in users.values():
@@ -21,8 +23,11 @@ def get_users():
 
 @app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
 def Get_User_By_Id(user_id):
-    """
-    Retrieves a user based on the id
+    """Displays a user based on the id
+
+    Parameters:
+    user_id [str]: id of the user
+    Return: A JSON dictionary or a 404 response
     """
     user = storage.get(User, user_id)
     if user is None:
@@ -33,8 +38,13 @@ def Get_User_By_Id(user_id):
 @app_views.route('/users/<user_id>',
                  methods=['DELETE'], strict_slashes=False)
 def delete_user(user_id):
-    """
-    Deletes a user based on the id
+    """Deletes a user based off the id
+
+    Parameters:
+    user_id [str]: id of the user
+    Return:
+    A empty JSON dictionary with 200
+    response or a 404 response
     """
     user = storage.get(User, user_id)
     if user is None:
@@ -46,8 +56,10 @@ def delete_user(user_id):
 
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
 def create_user():
-    """
-    Creates a new user with POST
+    """Creates a new user object
+    Return:
+    A JSON dictionary with 201 response
+    or a 400 response
     """
     if request.headers.get('Content-Type') != 'application/json':
         abort(400, "Not a JSON")
@@ -63,7 +75,14 @@ def create_user():
 
 @app_views.route('/users/<users_id>', methods=['PUT'], strict_slashes=False)
 def update_user(user_id):
-    """Updates a user object based on the id"""
+    """Updates a user object based on the id
+
+    Parameters:
+    user_id [str]: id of the user
+    Return:
+    A JSON dictionary with 200 response
+    or a 400 response
+    """
     user = storage.get(User, user_id)
     if user is None:
         abort(404)
