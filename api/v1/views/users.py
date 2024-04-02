@@ -1,6 +1,8 @@
 #!/usr/bin/python3
-"""View for User objects that handles all default
-RESTful API actions"""
+"""
+View for User objects that handles all default
+RESTful API actions
+"""
 from api.v1.views import app_views
 from models import storage
 from flask import jsonify, request, abort
