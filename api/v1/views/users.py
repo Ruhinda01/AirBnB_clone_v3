@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
-View for User objects that handles all default
-RESTful API actions
+View for User objs that handles all
+default RESTFul API actions
 """
 from api.v1.views import app_views
 from models import storage
