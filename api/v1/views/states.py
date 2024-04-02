@@ -68,7 +68,6 @@ def update_state(state_id):
         abort(404)
     if request.headers.get('Content-Type') != 'application/json':
         abort(400, "Not a JSON")
-    # state.name = request.get_json().get('name', state.name)
     for key, value in request.get_json().items():
         if key not in ['id', 'created_at', 'updated_at']:
             setattr(state, key, value)
