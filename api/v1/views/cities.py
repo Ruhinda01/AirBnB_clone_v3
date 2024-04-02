@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""create a new view for City objects that handles all default RESTFul API actions"""
+"""create a new view for City objects
+that handles all default RESTFul API actions
+"""
 from api.v1.views import app_views
 from flask import jsonify, abort, request
 from models import storage
@@ -7,7 +9,8 @@ from models.state import State
 from models.city import City
 
 
-@app_views.route('/states/<state_id>/cities', methods=['GET'], strict_slashes=False)
+@app_views.route('/states/<state_id>/cities',
+                 methods=['GET'], strict_slashes=False)
 def get_state_cities(state_id):
     """Retrives a states cities"""
     state = storage.get(State, state_id)
@@ -34,10 +37,11 @@ def delete_city(city_id):
     storage.delete(city)
     storage.save()
 
-    return jsonify({city}), 200
+    return jsonify({}), 200
 
 
-@app_views.route('/states/<state_id>/cities', methods=['POST'], strict_slashes=False)
+@app_views.route('/states/<state_id>/cities',
+                 methods=['POST'], strict_slashes=False)
 def creates_city(state_id):
     """City in  a state using a state_id"""
     if request.headers.get('Content-Type') != 'application/json':
@@ -73,7 +77,7 @@ def update_city(city_id):
         abort(404)
 
     city = City(**request.get_json())
-    for key, value in request.get_json.items():
+    for key, value in request.get_json().items():
         if key not in ['id', 'state_id', 'created_at', 'updated_at']:
             setattr(city, key, value)
     storage.save()
