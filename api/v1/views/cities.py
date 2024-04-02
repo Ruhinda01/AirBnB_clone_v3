@@ -40,7 +40,7 @@ def delete_city(city_id):
 @app_views.route('/states/<state_id>/cities', methods=['POST'], strict_slashes=False)
 def creates_city(state_id):
     """City in  a state using a state_id"""
-    if not request.get_json():
+    if request.headers.get('Content-Type') != 'application/json':
         abort(400, "Not a JSON")
 
     if "name" not in request.get_json():
@@ -62,7 +62,7 @@ def creates_city(state_id):
 @app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
 def update_city(city_id):
     """Updates a city object"""
-    if not request.get_json():
+    if request.headers.get('Content-Type') != 'application/json':
         abort(400, "Not a JSON")
 
     if "name" not in request.get_json():

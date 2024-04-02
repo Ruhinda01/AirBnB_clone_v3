@@ -65,7 +65,7 @@ def update_amenity(amenity_id):
     amenity = storage.get(Amenity, amenity_id)
     if amenity is None:
         abort(404)
-    if not request.get_json():
+    if request.headers.get('Content-Type') != 'application/json':
         abort(400, "Not a JSON")
     for key, value in request.get_json().items():
         if key not in ['id', 'created_at', 'updated_at']:
