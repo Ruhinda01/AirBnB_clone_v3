@@ -76,7 +76,7 @@ def update_city(city_id):
     if city is None:
         abort(404)
 
-    city = City(**request.get_json())
+    # city = City(**request.get_json())
     for key, value in request.get_json().items():
         if key not in ['id', 'state_id', 'created_at', 'updated_at']:
             setattr(city, key, value)
