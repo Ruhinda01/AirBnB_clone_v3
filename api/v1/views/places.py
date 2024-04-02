@@ -78,7 +78,7 @@ def Update_place(place_id):
     if place is None:
         abort(404)
 
-    place = City(**request.get_json())
+    # place = City(**request.get_json())
     for key, value in request.get_json().items():
         if key not in ['id', 'user_id', 'state_id', 'created_at', 'updated_at']:
             setattr(place, key, value)
