@@ -21,7 +21,9 @@ def get_users():
 
 @app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
 def Get_User_By_Id(user_id):
-    """Retrieves a user based on the id"""
+    """
+    Retrieves a user based on the id
+    """
     user = storage.get(User, user_id)
     if user is None:
         abort(404)
@@ -31,7 +33,9 @@ def Get_User_By_Id(user_id):
 @app_views.route('/users/<user_id>',
                  methods=['DELETE'], strict_slashes=False)
 def delete_user(user_id):
-    """Deletes a User based on the id"""
+    """
+    Deletes a user based on the id
+    """
     user = storage.get(User, user_id)
     if user is None:
         abort(404)
@@ -42,7 +46,9 @@ def delete_user(user_id):
 
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
 def create_user():
-    """Creates a new user"""
+    """
+    Creates a new user with POST
+    """
     if request.headers.get('Content-Type') != 'application/json':
         abort(400, "Not a JSON")
     if "email" not in request.get_json():
